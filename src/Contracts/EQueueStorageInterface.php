@@ -11,7 +11,7 @@ interface EQueueStorageInterface
 
     public function borrowEntityId(): ?string;
 
-    public function getJobsByEntityId(string $entityId): EQueueJobsContainer;
+    public function findJobsByBorrowedEntityId(string $entityId): EQueueJobsContainer;
 
     public function onJobHandlingError(EQueueJobInterface $job, Throwable $exception): void;
 

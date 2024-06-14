@@ -36,7 +36,7 @@ readonly class EQueueWorker
                 continue;
             }
 
-            $jobsContainer = $this->storage->getJobsByEntityId($entityId);
+            $jobsContainer = $this->storage->findJobsByBorrowedEntityId($entityId);
 
             foreach ($jobsContainer->get() as $job) {
                 try {

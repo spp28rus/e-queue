@@ -47,7 +47,7 @@ class EQueueTestStorage implements EQueueStorageInterface
         return $entityId;
     }
 
-    public function getJobsByEntityId(string $entityId): EQueueJobsContainer
+    public function findJobsByBorrowedEntityId(string $entityId): EQueueJobsContainer
     {
         $container = new EQueueJobsContainer();
 
