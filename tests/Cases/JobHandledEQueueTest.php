@@ -44,10 +44,6 @@ class JobHandledEQueueTest extends BaseEQueueTestCase
             $storage->wasJobError($jobUuid)
         );
 
-        $this->assertFalse(
-            $storage->wasEntityRestored($entityId)
-        );
-
         $this->assertTrue(
             $storage->wasEntityReleased($entityId)
         );

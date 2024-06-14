@@ -43,13 +43,5 @@ class JobExceptionEQueueTest extends BaseEQueueTestCase
         $this->assertTrue(
             $storage->wasJobError($jobUuid)
         );
-
-        $this->assertTrue(
-            $storage->wasEntityRestored($entityId)
-        );
-
-        $this->assertFalse(
-            $storage->hasEntity($entityId)
-        );
     }
 }

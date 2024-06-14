@@ -15,10 +15,6 @@ interface EQueueStorageInterface
 
     public function onJobHandlingError(EQueueJobInterface $job, Throwable $exception): void;
 
-    public function deleteJobsByEntityId(string $entityId): void;
-
-    public function restoreByEntityId(string $entityId): void;
-
     public function releaseEntityId(string $entityId): void;
 
     public function onJobHandled(EQueueJobInterface $job): void;

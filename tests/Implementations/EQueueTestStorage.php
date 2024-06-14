@@ -18,8 +18,6 @@ class EQueueTestStorage implements EQueueStorageInterface
     /** @var array<string> */
     private array $errorJobUuids = [];
     /** @var array<string> */
-    private array $restoredEntityIds = [];
-    /** @var array<string> */
     private array $handledJobUuids = [];
 
     public function __construct(
@@ -69,16 +67,6 @@ class EQueueTestStorage implements EQueueStorageInterface
         $this->errorJobUuids[] = $job->getUuid();
     }
 
-    public function deleteJobsByEntityId(string $entityId): void
-    {
-        unset($this->jobs[$entityId]);
-    }
-
-    public function restoreByEntityId(string $entityId): void
-    {
-        $this->restoredEntityIds[] = $entityId;
-    }
-
     public function releaseEntityId(string $entityId): void
     {
         $this->borrowedEntityIds = array_filter(
@@ -99,11 +87,6 @@ class EQueueTestStorage implements EQueueStorageInterface
     public function wasJobError(string $jobUuid): bool
     {
         return in_array($jobUuid, $this->errorJobUuids);
-    }
-
-    public function wasEntityRestored(string $entityId): bool
-    {
-        return in_array($entityId, $this->restoredEntityIds);
     }
 
     public function wasJobHandled(string $jobUuid): bool

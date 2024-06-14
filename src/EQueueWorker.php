@@ -44,10 +44,6 @@ readonly class EQueueWorker
                 } catch (Throwable $exception) {
                     $this->storage->onJobHandlingError($job, $exception);
 
-                    $this->storage->deleteJobsByEntityId($entityId);
-
-                    $this->storage->restoreByEntityId($entityId);
-
                     break;
                 }
 
