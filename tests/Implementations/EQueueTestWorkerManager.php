@@ -5,7 +5,7 @@ namespace Tests\Implementations;
 use EQueue\Contracts\EQueueWorkerManagerInterface;
 use Throwable;
 
-class EQueueWorkerManager implements EQueueWorkerManagerInterface
+class EQueueTestWorkerManager implements EQueueWorkerManagerInterface
 {
     private bool $wasStarted = false;
     private bool $wasStopped = false;

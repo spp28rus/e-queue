@@ -3,19 +3,21 @@
 namespace Tests\Cases;
 
 use EQueue\EQueueWorker;
-use Tests\BaseTestCase;
-use Tests\Implementations\EQueueStorage;
-use Tests\Implementations\EQueueWorkerManager;
+use Tests\BaseEQueueTestCase;
+use Tests\Implementations\EQueueTestStorage;
+use Tests\Implementations\EQueueTestWorkerManager;
 
-class WorkerTest extends BaseTestCase
+class WorkerExceptionEQueueTest extends BaseEQueueTestCase
 {
     public function test(): void
     {
-        $workerManager = new EQueueWorkerManager(
+        $workerManager = new EQueueTestWorkerManager(
             iterationsCount: 3
         );
 
-        $storage = new EQueueStorage();
+        $storage = new EQueueTestStorage(
+            isException: true
+        );
 
         $worker = new EQueueWorker(
             workerManager: $workerManager,
@@ -29,11 +31,15 @@ class WorkerTest extends BaseTestCase
         );
 
         $this->assertTrue(
+            $workerManager->wasError()
+        );
+
+        $this->assertTrue(
             $workerManager->wasStopped()
         );
 
         $this->assertEquals(
-            0,
+            2,
             $workerManager->getIterationsCount()
         );
     }

@@ -5,7 +5,7 @@ namespace Tests\Implementations;
 use EQueue\Contracts\EQueueJobInterface;
 use RuntimeException;
 
-readonly class EQueueJob implements EQueueJobInterface
+readonly class EQueueTestJob implements EQueueJobInterface
 {
     public function __construct(
         private string $uuid,

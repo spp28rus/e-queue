@@ -8,7 +8,7 @@ use EQueue\Entities\EQueueJobsContainer;
 use RuntimeException;
 use Throwable;
 
-class EQueueStorage implements EQueueStorageInterface
+class EQueueTestStorage implements EQueueStorageInterface
 {
     /** @var array<string, EQueueJobInterface> */
     private array $jobs = [];

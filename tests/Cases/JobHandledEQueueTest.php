@@ -3,22 +3,22 @@
 namespace Tests\Cases;
 
 use EQueue\EQueueWorker;
-use Tests\BaseTestCase;
-use Tests\Implementations\EQueueJob;
-use Tests\Implementations\EQueueStorage;
-use Tests\Implementations\EQueueWorkerManager;
+use Tests\BaseEQueueTestCase;
+use Tests\Implementations\EQueueTestJob;
+use Tests\Implementations\EQueueTestStorage;
+use Tests\Implementations\EQueueTestWorkerManager;
 
-class JobHandledTest extends BaseTestCase
+class JobHandledEQueueTest extends BaseEQueueTestCase
 {
     public function test(): void
     {
-        $workerManager = new EQueueWorkerManager(
+        $workerManager = new EQueueTestWorkerManager(
             iterationsCount: 3
         );
 
-        $storage = new EQueueStorage();
+        $storage = new EQueueTestStorage();
 
-        $job = new EQueueJob(
+        $job = new EQueueTestJob(
             uuid: uniqid(),
             entityId: uniqid(),
             isException: false,
