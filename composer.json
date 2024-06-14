@@ -1,0 +1,34 @@
+{
+    "name": "spp28/e-queue",
+    "description": "Separated queues by entities",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel",
+            "email": "sppetrovich@mail.ru"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "EQueue\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit"
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
