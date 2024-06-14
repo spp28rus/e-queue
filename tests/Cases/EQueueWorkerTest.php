@@ -4,11 +4,10 @@ namespace Tests\Cases;
 
 use EQueue\EQueueWorker;
 use Tests\BaseEQueueTestCase;
-use Tests\Implementations\EQueueTestJob;
 use Tests\Implementations\EQueueTestStorage;
 use Tests\Implementations\EQueueTestWorkerManager;
 
-class JobExceptionEQueueTest extends BaseEQueueTestCase
+class EQueueWorkerTest extends BaseEQueueTestCase
 {
     public function test(): void
     {
@@ -18,21 +17,6 @@ class JobExceptionEQueueTest extends BaseEQueueTestCase
 
         $storage = new EQueueTestStorage();
 
-        $job = new EQueueTestJob(
-            uuid: uniqid(),
-            entityId: uniqid(),
-            isException: true,
-        );
-
-        $storage->pushJob($job);
-
-        $entityId = $job->getEntityId();
-        $jobUuid  = $job->getUuid();
-
-        $this->assertTrue(
-            $storage->hasEntity($entityId)
-        );
-
         $worker = new EQueueWorker(
             workerManager: $workerManager,
             storage: $storage
@@ -41,7 +25,16 @@ class JobExceptionEQueueTest extends BaseEQueueTestCase
         $worker->run(uniqid());
 
         $this->assertTrue(
-            $storage->wasJobError($jobUuid)
+            $workerManager->wasStarted()
+        );
+
+        $this->assertTrue(
+            $workerManager->wasStopped()
+        );
+
+        $this->assertEquals(
+            0,
+            $workerManager->getIterationsCount()
         );
     }
 }

@@ -8,7 +8,7 @@ use Tests\Implementations\EQueueTestJob;
 use Tests\Implementations\EQueueTestStorage;
 use Tests\Implementations\EQueueTestWorkerManager;
 
-class PusherEQueueTest extends BaseEQueueTestCase
+class EQueuePusherTest extends BaseEQueueTestCase
 {
     public function test(): void
     {
