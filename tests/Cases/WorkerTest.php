@@ -7,12 +7,15 @@ use Tests\BaseTestCase;
 use Tests\Implementations\EQueueStorage;
 use Tests\Implementations\EQueueWorkerManager;
 
-class ExampleTest extends BaseTestCase
+class WorkerTest extends BaseTestCase
 {
     public function test(): void
     {
-        $workerManager = new EQueueWorkerManager();
-        $storage       = new EQueueStorage();
+        $workerManager = new EQueueWorkerManager(
+            iterationsCount: 3
+        );
+
+        $storage = new EQueueStorage();
 
         $worker = new EQueueWorker(
             workerManager: $workerManager,
@@ -23,6 +26,15 @@ class ExampleTest extends BaseTestCase
 
         $this->assertTrue(
             $workerManager->wasStarted()
+        );
+
+        $this->assertTrue(
+            $workerManager->wasStopped()
+        );
+
+        $this->assertEquals(
+            0,
+            $workerManager->getIterationsCount()
         );
     }
 }

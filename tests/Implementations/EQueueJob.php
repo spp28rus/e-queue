@@ -3,21 +3,31 @@
 namespace Tests\Implementations;
 
 use EQueue\Contracts\EQueueJobInterface;
+use RuntimeException;
 
-class EQueueJob implements EQueueJobInterface
+readonly class EQueueJob implements EQueueJobInterface
 {
+    public function __construct(
+        private string $uuid,
+        private string $entityId,
+        private bool $isException,
+    ) {
+    }
+
     public function getUuid(): string
     {
-        return uniqid();
+        return $this->uuid;
     }
 
     public function getEntityId(): string
     {
-        return uniqid();
+        return $this->entityId;
     }
 
     public function handle(): void
     {
-        // TODO
+        if ($this->isException) {
+            throw new RuntimeException($this->entityId);
+        }
     }
 }
