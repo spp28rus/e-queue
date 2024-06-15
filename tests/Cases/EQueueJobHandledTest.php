@@ -26,11 +26,11 @@ class EQueueJobHandledTest extends BaseEQueueTestCase
 
         $service->pushJob($job);
 
-        $jobUuid      = $job->getUuid();
-        $borrowedUuid = $job->getEntityId();
+        $entityId = $job->getEntityId();
+        $jobUuid  = $job->getUuid();
 
         $this->assertTrue(
-            $service->hasJobsByBorrowedUuid($borrowedUuid)
+            $service->hasEntity($entityId)
         );
 
         $worker = new EQueueWorker(
@@ -45,7 +45,7 @@ class EQueueJobHandledTest extends BaseEQueueTestCase
         );
 
         $this->assertTrue(
-            $service->wasReleased($borrowedUuid)
+            $service->wasEntityReleased($entityId)
         );
 
         $this->assertTrue(

@@ -24,7 +24,7 @@ class EQueuePusherTest extends BaseEQueueTestCase
         $pusher->push($job);
 
         $this->assertTrue(
-            $service->hasJobsByBorrowedUuid($job->getEntityId())
+            $service->hasEntity($job->getEntityId())
         );
     }
 }

@@ -14,7 +14,7 @@ class EQueueTestService implements EQueueServiceInterface
     private array $jobs = [];
 
     /** @var array<string> */
-    private array $borrowedUuids = [];
+    private array $borrowedEntityIds = [];
     /** @var array<string> */
     private array $errorJobUuids = [];
     /** @var array<string> */
@@ -30,7 +30,7 @@ class EQueueTestService implements EQueueServiceInterface
         $this->jobs[$job->getEntityId()] = $job;
     }
 
-    public function borrow(): ?string
+    public function borrowEntityId(): ?string
     {
         if ($this->isException) {
             throw new RuntimeException();
@@ -40,24 +40,19 @@ class EQueueTestService implements EQueueServiceInterface
             return null;
         }
 
-        $borrowingUuid = $this->jobs[array_keys($this->jobs)[0]]->getEntityId();
+        $entityId = $this->jobs[array_keys($this->jobs)[0]]->getEntityId();
 
-        $this->borrowedUuids[] = $borrowingUuid;
+        $this->borrowedEntityIds[] = $entityId;
 
-        return $borrowingUuid;
+        return $entityId;
     }
 
-    public function isActualBorrowingUuid(string $borrowingUuid): bool
-    {
-        return in_array($borrowingUuid, $this->borrowedUuids);
-    }
-
-    public function findJobsByBorrowingUuid(string $borrowingUuid): EQueueJobsContainer
+    public function findJobsByBorrowedEntityId(string $entityId): EQueueJobsContainer
     {
         $container = new EQueueJobsContainer();
 
         foreach ($this->jobs as $job) {
-            if ($job->getEntityId() !== $borrowingUuid) {
+            if ($job->getEntityId() !== $entityId) {
                 continue;
             }
 
@@ -72,11 +67,11 @@ class EQueueTestService implements EQueueServiceInterface
         $this->errorJobUuids[] = $job->getUuid();
     }
 
-    public function releaseBorrowing(string $borrowingUuid): void
+    public function releaseEntityId(string $entityId): void
     {
-        $this->borrowedUuids = array_filter(
-            $this->borrowedUuids,
-            fn(string $borrowedUuid) => $borrowedUuid !== $borrowingUuid
+        $this->borrowedEntityIds = array_filter(
+            $this->borrowedEntityIds,
+            fn(string $borrowedEntityId) => $borrowedEntityId !== $entityId
         );
     }
 
@@ -99,13 +94,13 @@ class EQueueTestService implements EQueueServiceInterface
         return in_array($jobUuid, $this->handledJobUuids);
     }
 
-    public function wasReleased(string $borrowedUuid): bool
+    public function wasEntityReleased(string $entityId): bool
     {
-        return !in_array($borrowedUuid, $this->borrowedUuids);
+        return !in_array($entityId, $this->borrowedEntityIds);
     }
 
-    public function hasJobsByBorrowedUuid(string $borrowedUuid): bool
+    public function hasEntity(string $entityId): bool
     {
-        return array_key_exists($borrowedUuid, $this->jobs);
+        return array_key_exists($entityId, $this->jobs);
     }
 }
