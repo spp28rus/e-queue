@@ -8,7 +8,7 @@ interface EQueueWorkerManagerInterface
 {
     public function onStarted(string $uuid): void;
 
-    public function stop(string $uuid): bool;
+    public function while(string $uuid): bool;
 
     public function onStopped(string $uuid): void;
 

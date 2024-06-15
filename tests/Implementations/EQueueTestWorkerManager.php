@@ -21,7 +21,7 @@ class EQueueTestWorkerManager implements EQueueWorkerManagerInterface
         $this->wasStarted = true;
     }
 
-    public function stop(string $uuid): bool
+    public function while(string $uuid): bool
     {
         return --$this->iterationsCount === 0;
     }

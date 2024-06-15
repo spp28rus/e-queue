@@ -29,7 +29,7 @@ readonly class EQueueWorker
 
     private function onRun(string $workerUuid): void
     {
-        while (!$this->workerManager->stop($workerUuid)) {
+        while (!$this->workerManager->while($workerUuid)) {
             $entityId = $this->service->borrowEntityId();
 
             if (is_null($entityId)) {
