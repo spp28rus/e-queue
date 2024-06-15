@@ -2,11 +2,10 @@
 
 namespace Tests\Cases;
 
-use EQueue\EQueueWorker;
+use EQueue\EQueuePusher;
 use Tests\BaseEQueueTestCase;
 use Tests\Implementations\EQueueTestJob;
 use Tests\Implementations\EQueueTestService;
-use Tests\Implementations\EQueueTestWorkerManager;
 
 class EQueuePusherTest extends BaseEQueueTestCase
 {
@@ -14,13 +13,15 @@ class EQueuePusherTest extends BaseEQueueTestCase
     {
         $service = new EQueueTestService();
 
+        $pusher = new EQueuePusher($service);
+
         $job = new EQueueTestJob(
             uuid: uniqid(),
             entityId: uniqid(),
             isException: false,
         );
 
-        $service->pushJob($job);
+        $pusher->push($job);
 
         $this->assertTrue(
             $service->hasEntity($job->getEntityId())
