@@ -5,7 +5,7 @@ namespace EQueue\Contracts;
 use EQueue\Entities\EQueueJobsContainer;
 use Throwable;
 
-interface EQueueStorageInterface
+interface EQueueServiceInterface
 {
     public function pushJob(EQueueJobInterface $job): void;
 

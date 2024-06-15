@@ -5,14 +5,14 @@ namespace Tests\Cases;
 use EQueue\EQueueWorker;
 use Tests\BaseEQueueTestCase;
 use Tests\Implementations\EQueueTestJob;
-use Tests\Implementations\EQueueTestStorage;
+use Tests\Implementations\EQueueTestService;
 use Tests\Implementations\EQueueTestWorkerManager;
 
 class EQueuePusherTest extends BaseEQueueTestCase
 {
     public function test(): void
     {
-        $storage = new EQueueTestStorage();
+        $service = new EQueueTestService();
 
         $job = new EQueueTestJob(
             uuid: uniqid(),
@@ -20,10 +20,10 @@ class EQueuePusherTest extends BaseEQueueTestCase
             isException: false,
         );
 
-        $storage->pushJob($job);
+        $service->pushJob($job);
 
         $this->assertTrue(
-            $storage->hasEntity($job->getEntityId())
+            $service->hasEntity($job->getEntityId())
         );
     }
 }

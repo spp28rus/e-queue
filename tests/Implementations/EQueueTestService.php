@@ -3,12 +3,12 @@
 namespace Tests\Implementations;
 
 use EQueue\Contracts\EQueueJobInterface;
-use EQueue\Contracts\EQueueStorageInterface;
+use EQueue\Contracts\EQueueServiceInterface;
 use EQueue\Entities\EQueueJobsContainer;
 use RuntimeException;
 use Throwable;
 
-class EQueueTestStorage implements EQueueStorageInterface
+class EQueueTestService implements EQueueServiceInterface
 {
     /** @var array<string, EQueueJobInterface> */
     private array $jobs = [];

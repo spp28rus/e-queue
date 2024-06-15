@@ -4,7 +4,7 @@ namespace Tests\Cases;
 
 use EQueue\EQueueWorker;
 use Tests\BaseEQueueTestCase;
-use Tests\Implementations\EQueueTestStorage;
+use Tests\Implementations\EQueueTestService;
 use Tests\Implementations\EQueueTestWorkerManager;
 
 class EQueueWorkerTest extends BaseEQueueTestCase
@@ -15,11 +15,11 @@ class EQueueWorkerTest extends BaseEQueueTestCase
             iterationsCount: 3
         );
 
-        $storage = new EQueueTestStorage();
+        $service = new EQueueTestService();
 
         $worker = new EQueueWorker(
             workerManager: $workerManager,
-            storage: $storage
+            service: $service
         );
 
         $worker->run(uniqid());
