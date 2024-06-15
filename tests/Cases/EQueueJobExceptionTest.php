@@ -20,7 +20,7 @@ class EQueueJobExceptionTest extends BaseEQueueTestCase
 
         $job = new EQueueTestJob(
             uuid: uniqid(),
-            entityId: uniqid(),
+            entityId: mt_rand(1000, 10000),
             isException: true,
         );
 

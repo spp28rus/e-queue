@@ -9,7 +9,7 @@ readonly class EQueueTestJob implements EQueueJobInterface
 {
     public function __construct(
         private string $uuid,
-        private string $entityId,
+        private int $entityId,
         private bool $isException,
     ) {
     }
@@ -19,7 +19,7 @@ readonly class EQueueTestJob implements EQueueJobInterface
         return $this->uuid;
     }
 
-    public function getEntityId(): string
+    public function getEntityId(): int
     {
         return $this->entityId;
     }
