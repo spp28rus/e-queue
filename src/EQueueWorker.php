@@ -30,15 +30,19 @@ readonly class EQueueWorker
     private function onRun(string $workerUuid): void
     {
         while (!$this->workerManager->stop($workerUuid)) {
-            $entityId = $this->service->borrowEntityId();
+            $borrowingUuid = $this->service->borrow();
 
-            if (is_null($entityId)) {
+            if (is_null($borrowingUuid)) {
                 continue;
             }
 
-            $jobsContainer = $this->service->findJobsByBorrowedEntityId($entityId);
+            $jobsContainer = $this->service->findJobsByBorrowingUuid($borrowingUuid);
 
             foreach ($jobsContainer->get() as $job) {
+                if (!$this->service->isActualBorrowingUuid($borrowingUuid)) {
+                    break;
+                }
+
                 try {
                     $job->handle();
                 } catch (Throwable $exception) {
@@ -50,7 +54,7 @@ readonly class EQueueWorker
                 $this->service->onJobHandled($job);
             }
 
-            $this->service->releaseEntityId($entityId);
+            $this->service->releaseBorrowing($borrowingUuid);
         }
     }
 }

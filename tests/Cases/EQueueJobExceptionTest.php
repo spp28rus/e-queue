@@ -26,11 +26,11 @@ class EQueueJobExceptionTest extends BaseEQueueTestCase
 
         $service->pushJob($job);
 
-        $entityId = $job->getEntityId();
-        $jobUuid  = $job->getUuid();
+        $jobUuid      = $job->getUuid();
+        $borrowedUuid = $job->getEntityId();
 
         $this->assertTrue(
-            $service->hasEntity($entityId)
+            $service->hasJobsByBorrowedUuid($borrowedUuid)
         );
 
         $worker = new EQueueWorker(
